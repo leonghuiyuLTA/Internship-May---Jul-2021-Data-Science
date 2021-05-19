@@ -1,0 +1,37 @@
+5 Things required for an RL process:
+State - Board and its components
+Action - Place X/O on board
+Reward - Win, Lose, Tie
+Environment - The Tic Tac Toe Environment
+Agent - players
+
+
+Basic TTT:
+3x3 board, 8 win conditions
+players take turns to place X/O
+win/lose/draw need to be checked, then game is over(Flag?)
+
+
+Environment:
+Prints current state(UI)
+X|O|X
+-----
+O|X|O
+-----
+X|O|X
+
+Choose Row:
+Choose Col:
+
+State:
+Current state of the board, detect win/lose/end
+Resets when required.
+Maintains a list of legal moves - to iterate through and choose best
+
+Reward(values can be changed later):
+Win = 1
+Lose = 0
+Tie = 0.5
+
+Agent:
+P1, P2, each maintains the set of states it goes through, used to reverse propagate the reward values at the end.
