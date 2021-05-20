@@ -1,0 +1,42 @@
+Technicalities:
+
+State Variables:
+-0.07 < Velocity < 0.07
+-1.2 < Position < 0.6
+
+Actions:
+motor = [-1,0,1]
+
+Reward:
+1 time step = -1
+
+Update function:
+Action = [-1,0,1]
+Velocity = Velocity + Action*0.001 + cos(3*position)*-0.0025
+Position = Position + Velocity
+
+Starting:
+Position = -0.5
+Velocity = 0.0
+
+Terminate:
+Position >= 0.6
+
+Using OpenAI Gym, referring to https://www.youtube.com/watch?v=rBzOyjywtPw&ab_channel=MachineLearningwithPhil
+
+*OpenAI Gym max steps may not be enough to start the learning process so should increase it at the start
+
+To determine Q-value:
+Initialise Q(state, action) for all state and action pairs, and Q(terminal,.) = 0
+Repeat(for each episode):
+  Initialise S
+  Choose A from S using policy from Q(e.g. epsilon greedy)
+  Repeat for each step:
+    Take action A, observe R,S'
+    Choose A' from S' using policy from Q(e.g. epsilon greedy)
+    Q(S,A) = Q(S,A) + alpha * [R+gamma*Q(S',A') - Q(S,A)]
+    S<-S', A <- A'
+  until S is terminal
+
+  States: Position - Velocity Pair, (like tiles in 2D) e.g. pos = [-1.2, -1.1], vel = [-0.01, 0]
+  Actions: -1, 0, 1, but for the purpose of the gym environment, action = [0,1,2]
