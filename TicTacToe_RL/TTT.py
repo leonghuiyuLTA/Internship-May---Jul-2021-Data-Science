@@ -1,4 +1,5 @@
 import numpy as np
+from matplotlib import pyplot as plt
 import pickle
 
 class boardstate:
@@ -9,8 +10,8 @@ class boardstate:
         self.p1 = p1
         self.p2 = p2
 
-    def hashfn(self):
-        return str(self.board.reshape(9))
+    def hashfn(self, board):
+        return str(board.reshape(9))
 
     def reset(self):
         self.board = np.zeros((3,3))
@@ -78,6 +79,19 @@ class boardstate:
         return
 
     def cpu_cpu(self,rounds):
+        #this part is to decide which state you want to check
+        arrtocheck = np.zeros((3,3))
+        arrtocheck[0, 0] = 1
+        arrtocheck[0, 1] = 0
+        arrtocheck[0, 2] = 0
+        arrtocheck[1, 0] = -1
+        arrtocheck[1, 1] = 1
+        arrtocheck[1, 2] = 0
+        arrtocheck[2, 0] = 0
+        arrtocheck[2, 1] = 0
+        arrtocheck[2, 2] = -1
+        stateofinterest = self.hashfn(arrtocheck)
+        valarray = np.zeros(1)
         for i in range(rounds):
             if i % 5000 == 0: print("round " + str(i))
             while not self.gameover:
@@ -85,7 +99,7 @@ class boardstate:
                 pos = self.availPos()
                 action = self.p1.action(pos, self.board, 1)
                 self.update_board(action,1)
-                self.boardHash = self.hashfn()
+                self.boardHash = self.hashfn(self.board)
                 self.p1.add_state(self.boardHash)
                 win = self.winner()
                 if win is not None:
@@ -100,7 +114,7 @@ class boardstate:
                     pos = self.availPos()
                     action = self.p2.action(pos, self.board, -1)
                     self.update_board(action, -1)
-                    self.boardHash = self.hashfn()
+                    self.boardHash = self.hashfn(self.board)
                     self.p2.add_state(self.boardHash)
                     win = self.winner()
                     if win is not None:
@@ -109,6 +123,13 @@ class boardstate:
                         self.p2.reset()
                         self.reset()
                         break
+            p1state = 0 if self.p1.state_qvals.get(stateofinterest) is None else self.p1.state_qvals.get(stateofinterest)
+            p2state = 0 if self.p2.state_qvals.get(stateofinterest) is None else self.p2.state_qvals.get(stateofinterest)
+            valarray = np.append(valarray, max(p1state,p2state))
+        x = np.arange(0,rounds+1)
+        plt.scatter(x,valarray)
+        plt.show()
+
 
     def cpu_human(self):
         while not self.gameover:
@@ -206,14 +227,14 @@ class HumanPlayer:
             else: print("invalid action")
 
 if __name__ == "__main__":
-    #p1 = player("p1", exp_rate=0.5)
-    #p2 = player("p2", exp_rate=0.5)
+    p1 = player("p1", exp_rate=0.5)
+    p2 = player("p2", exp_rate=0.5)
 
-    #board = boardstate(p1,p2)
-    #board.cpu_cpu(50000)
+    board = boardstate(p1,p2)
+    board.cpu_cpu(50000)
 
-    #p1.savePolicy()
-    #p2.savePolicy()
+    p1.savePolicy()
+    p2.savePolicy()
 
     p1 = player("computer")
     p1.loadPolicy("policy_p1")
