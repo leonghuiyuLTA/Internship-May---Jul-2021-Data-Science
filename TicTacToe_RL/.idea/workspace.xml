@@ -3,6 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="a3370fdc-e47f-4410-ab25-4f36a152e2e7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTT.py" beforeDir="false" afterPath="$PROJECT_DIR$/TTT.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/policy_p1" beforeDir="false" afterPath="$PROJECT_DIR$/policy_p1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/policy_p2" beforeDir="false" afterPath="$PROJECT_DIR$/policy_p2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mountain car/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mountain car/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +43,7 @@
       <recent name="C:\Users\mahvi\Desktop\TicTacToe_RL" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.TTT (1)">
+  <component name="RunManager" selected="Python.dictionary in excel">
     <configuration name="TTT (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="TicTacToe_RL" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -82,6 +86,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="dictionary in excel" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="TicTacToe_RL" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/dictionary in excel.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="online version" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="TicTacToe_RL" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -105,6 +130,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.dictionary in excel" />
         <item itemvalue="Python.TTT (1)" />
         <item itemvalue="Python.online version" />
         <item itemvalue="Python.TTT" />
@@ -133,29 +159,29 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1621490130707" />
-    <state width="1515" height="277" key="GridCell.Tab.0.bottom" timestamp="1621473929651">
-      <screen x="-1920" y="0" width="1920" height="1080" />
+    <state width="1515" height="167" key="GridCell.Tab.0.bottom" timestamp="1621565512275">
+      <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1515" height="277" key="GridCell.Tab.0.bottom/0.0.1536.864/-1920.0.1920.1080@-1920.0.1920.1080" timestamp="1621473929651" />
-    <state width="1515" height="223" key="GridCell.Tab.0.bottom/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1621307998028" />
+    <state width="1515" height="167" key="GridCell.Tab.0.bottom/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1621565512275" />
     <state width="1515" height="277" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1621473458934" />
-    <state width="1515" height="277" key="GridCell.Tab.0.center" timestamp="1621473929651">
-      <screen x="-1920" y="0" width="1920" height="1080" />
+    <state width="1515" height="167" key="GridCell.Tab.0.center" timestamp="1621565512275">
+      <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1515" height="277" key="GridCell.Tab.0.center/0.0.1536.864/-1920.0.1920.1080@-1920.0.1920.1080" timestamp="1621473929651" />
-    <state width="1515" height="223" key="GridCell.Tab.0.center/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1621307998028" />
+    <state width="1515" height="167" key="GridCell.Tab.0.center/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1621565512275" />
     <state width="1515" height="277" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1621473458934" />
-    <state width="1515" height="277" key="GridCell.Tab.0.left" timestamp="1621473929651">
-      <screen x="-1920" y="0" width="1920" height="1080" />
+    <state width="1515" height="167" key="GridCell.Tab.0.left" timestamp="1621565512274">
+      <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1515" height="277" key="GridCell.Tab.0.left/0.0.1536.864/-1920.0.1920.1080@-1920.0.1920.1080" timestamp="1621473929651" />
-    <state width="1515" height="223" key="GridCell.Tab.0.left/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1621307998028" />
+    <state width="1515" height="167" key="GridCell.Tab.0.left/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1621565512274" />
     <state width="1515" height="277" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1621473458933" />
-    <state width="1515" height="277" key="GridCell.Tab.0.right" timestamp="1621473929651">
-      <screen x="-1920" y="0" width="1920" height="1080" />
+    <state width="1515" height="167" key="GridCell.Tab.0.right" timestamp="1621565512275">
+      <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1515" height="277" key="GridCell.Tab.0.right/0.0.1536.864/-1920.0.1920.1080@-1920.0.1920.1080" timestamp="1621473929651" />
-    <state width="1515" height="223" key="GridCell.Tab.0.right/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1621307998028" />
+    <state width="1515" height="167" key="GridCell.Tab.0.right/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1621565512275" />
     <state width="1515" height="277" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1621473458934" />
     <state width="1515" height="277" key="GridCell.Tab.1.bottom" timestamp="1621473929651">
       <screen x="-1920" y="0" width="1920" height="1080" />
@@ -181,14 +207,15 @@
     <state width="1515" height="277" key="GridCell.Tab.1.right/0.0.1536.864/-1920.0.1920.1080@-1920.0.1920.1080" timestamp="1621473929651" />
     <state width="1515" height="277" key="GridCell.Tab.1.right/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1621307467337" />
     <state width="1515" height="277" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1621473458934" />
-    <state x="277" y="75" key="SettingsEditor" timestamp="1621472100463">
+    <state x="277" y="75" key="SettingsEditor" timestamp="1621562614186">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
+    <state x="277" y="75" key="SettingsEditor/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1621562614186" />
     <state x="277" y="75" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1621472100463" />
-    <state x="465" y="256" key="com.intellij.ide.util.TipDialog" timestamp="1621490095561">
+    <state x="465" y="256" key="com.intellij.ide.util.TipDialog" timestamp="1621562133289">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="465" y="256" key="com.intellij.ide.util.TipDialog/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1621407279556" />
+    <state x="465" y="256" key="com.intellij.ide.util.TipDialog/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1621562133289" />
     <state x="465" y="256" key="com.intellij.ide.util.TipDialog/0.0.1536.864@0.0.1536.864" timestamp="1621490095561" />
     <state x="341" y="168" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1621305670203">
       <screen x="0" y="0" width="1536" height="864" />

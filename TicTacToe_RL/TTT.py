@@ -92,6 +92,7 @@ class boardstate:
         arrtocheck[2, 2] = -1
         stateofinterest = self.hashfn(arrtocheck)
         valarray = np.zeros(1)
+        print("starting")
         for i in range(rounds):
             if i % 5000 == 0: print("round " + str(i))
             while not self.gameover:
@@ -231,7 +232,7 @@ if __name__ == "__main__":
     p2 = player("p2", exp_rate=0.5)
 
     board = boardstate(p1,p2)
-    board.cpu_cpu(50000)
+    board.cpu_cpu(100000)
 
     p1.savePolicy()
     p2.savePolicy()
