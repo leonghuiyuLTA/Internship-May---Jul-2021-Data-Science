@@ -1,6 +1,9 @@
 import numpy as np
 import gym
 from matplotlib import pyplot as plt
+from time import sleep
+
+# try to change number of tiles, gamma, alpha, epsilon
 
 # 20 intervals for each variable, overall will have 400 tiles
 pos_intervals = np.linspace(-1.2, 0.6, 20)
@@ -33,7 +36,7 @@ def choose_action(epsilon, Q, state):
 if __name__ == "__main__":
     env = gym.make('MountainCar-v0')
     env._max_episode_steps = 1000
-    rounds = 10000
+    rounds = 200
     alpha = 0.1
     gamma = 1
     epsilon = 1
@@ -51,6 +54,7 @@ if __name__ == "__main__":
         for a in action_space:
             Q[s, a] = 0
 
+    print("starting")
     # learning process
     for i in range(rounds):
         done = False
@@ -73,9 +77,11 @@ if __name__ == "__main__":
             state = new_state
             action = new_action
             score += reward
+            if i == rounds - 1: env.render()
         score_tracker[i] = score
         # updating epsilon so agent does less random actions
-        epsilon -= 1/rounds
+        if epsilon > 0:
+            epsilon -= 1/rounds
         # printing stuff for user
         if score > -1000:
             cuml_success += 1
