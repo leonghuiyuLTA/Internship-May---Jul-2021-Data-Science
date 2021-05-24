@@ -40,8 +40,9 @@ if __name__ == "__main__":
     Q = {}
     states = []
     score_tracker = np.zeros(rounds)
-    num_success = 0
-    success_tracker = np.zeros(int(rounds/1000) + 1)
+    cuml_success = 0
+    prev_success = 0
+    success_tracker = np.zeros(int(rounds/1000))
     # setup - initialise for all state action pairs
     for p in range(21):
         for v in range(21):
@@ -77,16 +78,23 @@ if __name__ == "__main__":
         epsilon -= 1/rounds
         # printing stuff for user
         if score > -1000:
-            num_success += 1
+            cuml_success += 1
         if i % 100 == 0 and i > 0:
             print("Round: ", i, " Score: ", score_tracker[i], " Epsilon: %.3f" % epsilon)
-        if i % 1000 == 0 and i > 0:
-            print("Num of successes: ", num_success)
-            success_tracker[int(i/1000)] = num_success - success_tracker[int(i/1000)-1]
+        if (i + 1) % 1000 == 0 and i > 0:
+            print("Num of successes: ", cuml_success)
+            success_tracker[int(i/1000)] = cuml_success - prev_success
+            prev_success = cuml_success
 
     # mean for set of 50, for each round
     mean_score = np.zeros(rounds)
     for t in range(rounds):
         mean_score[t] = np.mean(score_tracker[max(0, t-50) : (t+1)])
     plt.plot(mean_score)
-    plt.show()
+    plt.savefig('mean_score.png')
+
+    plt.clf()
+    plt.plot(success_tracker)
+    plt.savefig('num_of_successes.png')
+
+
