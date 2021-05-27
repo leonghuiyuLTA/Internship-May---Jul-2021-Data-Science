@@ -4,6 +4,8 @@ from matplotlib import pyplot as plt
 from time import sleep
 
 # try to change number of tiles, gamma, alpha, epsilon
+# base: 20x20, 1, 0.1, 1 to 0
+# RL takes into consideration training time/length
 
 # 20 intervals for each variable, overall will have 400 tiles
 pos_intervals = np.linspace(-1.2, 0.6, 20)
@@ -36,7 +38,7 @@ def choose_action(epsilon, Q, state):
 if __name__ == "__main__":
     env = gym.make('MountainCar-v0')
     env._max_episode_steps = 1000
-    rounds = 200
+    rounds = 20000
     alpha = 0.1
     gamma = 1
     epsilon = 1
@@ -45,6 +47,7 @@ if __name__ == "__main__":
     score_tracker = np.zeros(rounds)
     cuml_success = 0
     prev_success = 0
+    best_score = -1000
     success_tracker = np.zeros(int(rounds/1000))
     # setup - initialise for all state action pairs
     for p in range(21):
@@ -67,6 +70,8 @@ if __name__ == "__main__":
         # repeat until S is terminal
         while not done:
             # Take action A, observe R, S'
+            if i == 1 or i == 1000 or i == 10000 or i == rounds - 1:
+                env.render()
             obs, reward, done, info = env.step(action)
             new_state = get_state(obs)
             # Choose A' from S' using policy(epsilon greedy)
@@ -77,7 +82,9 @@ if __name__ == "__main__":
             state = new_state
             action = new_action
             score += reward
-            if i == rounds - 1: env.render()
+        env.close()
+        if score > best_score:
+            best_score = score
         score_tracker[i] = score
         # updating epsilon so agent does less random actions
         if epsilon > 0:
@@ -97,10 +104,10 @@ if __name__ == "__main__":
     for t in range(rounds):
         mean_score[t] = np.mean(score_tracker[max(0, t-50) : (t+1)])
     plt.plot(mean_score)
-    plt.savefig('mean_score.png')
+    plt.savefig('mean_score_other.png')
 
-    plt.clf()
-    plt.plot(success_tracker)
-    plt.savefig('num_of_successes.png')
+    # plt.clf()
+    # plt.plot(success_tracker)
+    # plt.savefig('num_of_successes.png')
 
 

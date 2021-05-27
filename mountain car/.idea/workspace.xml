@@ -2,8 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="94e9ae5c-18e0-4eac-a480-4ed39ea5209c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../TicTacToe_RL/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TicTacToe_RL/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TicTacToe_RL/TTT.py" beforeDir="false" afterPath="$PROJECT_DIR$/../TicTacToe_RL/TTT.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TicTacToe_RL/p1policy.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../TicTacToe_RL/p1policy.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TicTacToe_RL/p2policy.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../TicTacToe_RL/p2policy.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TicTacToe_RL/policy_p1" beforeDir="false" afterPath="$PROJECT_DIR$/../TicTacToe_RL/policy_p1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TicTacToe_RL/policy_p2" beforeDir="false" afterPath="$PROJECT_DIR$/../TicTacToe_RL/policy_p2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MC.py" beforeDir="false" afterPath="$PROJECT_DIR$/MC.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mean_score.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/num_of_successes.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -145,11 +153,19 @@
       <option name="project" value="LOCAL" />
       <updated>1621492181962</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Mountain Car">
+      <created>1621839561745</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1621839561745</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="halfway done, feel like copy off video oni but tried to create without referring" />
-    <option name="LAST_COMMIT_MESSAGE" value="halfway done, feel like copy off video oni but tried to create without referring" />
+    <MESSAGE value="Mountain Car" />
+    <option name="LAST_COMMIT_MESSAGE" value="Mountain Car" />
   </component>
 </project>

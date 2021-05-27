@@ -128,7 +128,7 @@ class boardstate:
             p2state = 0 if self.p2.state_qvals.get(stateofinterest) is None else self.p2.state_qvals.get(stateofinterest)
             valarray = np.append(valarray, max(p1state,p2state))
         x = np.arange(0,rounds+1)
-        plt.scatter(x,valarray)
+        plt.plot(x,valarray)
         plt.show()
 
 
@@ -153,6 +153,7 @@ class boardstate:
                 self.update_board(action, -1)
                 win = self.winner()
                 if win is not None:
+                    self.print_board()
                     if win == -1: print("u win")
                     else: print("tie")
                     self.reset()
@@ -237,10 +238,10 @@ if __name__ == "__main__":
     p1.savePolicy()
     p2.savePolicy()
 
-    p1 = player("computer")
-    p1.loadPolicy("policy_p1")
-
-    p2 = HumanPlayer("human")
-
-    st = boardstate(p1, p2)
-    st.cpu_human()
+    # p1 = player("computer")
+    # p1.loadPolicy("policy_p1")
+    #
+    # p2 = HumanPlayer("human")
+    #
+    # st = boardstate(p1, p2)
+    # st.cpu_human()
