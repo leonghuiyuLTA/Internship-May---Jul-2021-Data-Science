@@ -39,7 +39,7 @@ if __name__ == "__main__":
     env = gym.make('MountainCar-v0')
     env._max_episode_steps = 1000
     rounds = 20000
-    alpha = 0.1
+    alpha = 0.001
     gamma = 1
     epsilon = 1
     Q = {}
@@ -70,8 +70,8 @@ if __name__ == "__main__":
         # repeat until S is terminal
         while not done:
             # Take action A, observe R, S'
-            if i == 1 or i == 1000 or i == 10000 or i == rounds - 1:
-                env.render()
+            # if i == 1 or i == 1000 or i == 10000 or i == rounds - 1:
+            #     env.render()
             obs, reward, done, info = env.step(action)
             new_state = get_state(obs)
             # Choose A' from S' using policy(epsilon greedy)
@@ -82,7 +82,7 @@ if __name__ == "__main__":
             state = new_state
             action = new_action
             score += reward
-        env.close()
+        # env.close()
         if score > best_score:
             best_score = score
         score_tracker[i] = score
@@ -104,7 +104,7 @@ if __name__ == "__main__":
     for t in range(rounds):
         mean_score[t] = np.mean(score_tracker[max(0, t-50) : (t+1)])
     plt.plot(mean_score)
-    plt.savefig('mean_score_other.png')
+    plt.savefig('mean_score_low_alpha_0.001.png')
 
     # plt.clf()
     # plt.plot(success_tracker)
