@@ -1,7 +1,7 @@
 import autobus_env
 from time import sleep
 
-# set up the tiles (position and velocity)
+# set up the tiles (position, velocity, acceleration)
 
 
 

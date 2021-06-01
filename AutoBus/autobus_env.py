@@ -52,6 +52,8 @@ class AutobusEnv():
         return np.hstack((self.velocity, self.prev_acceleration))
 
     def get_reward(self):
+        # should implement minus a lot of points if above speed limit, and if final position
+        # too far from bus stop, then minus a lot points also
         reward_forward = abs(self.velocity - self.speed_limit)
         reward_forward /= self.speed_limit
 
