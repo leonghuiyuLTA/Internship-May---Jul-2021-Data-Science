@@ -113,6 +113,8 @@ class BusViewer(object):
         self.sprites.draw(self.screen)
         pygame.display.flip()
 
+    def close(self):
+        pygame.quit()
 
 if __name__ == "__main__":
     pos = 0
