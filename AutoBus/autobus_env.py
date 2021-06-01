@@ -1,8 +1,9 @@
-import os
+import pygame
+import rendering
 import numpy as np
 from gym import spaces
 from gym.utils import seeding
-# VERSION 1 : BUS SUPPOSED TO DRIVE AT MAX SPEED UNTIL REACH GOAL
+# VERSION 1 : BUS SUPPOSED TO DRIVE AT MAX SPEED UNTIL REACH GOAL - 200m
 
 class AutobusEnv():
     metadata = {'render.modes':['human']}
@@ -70,14 +71,8 @@ class AutobusEnv():
         state = self.get_state()
         return state
 
-    def render(self, mode = 'human'):
-        # do an implementation via pygame
-
-    def reset_viewer(self):
-        #reset the pygame instance
-
-    def close(self):
-        # close the thing
+    def render(self):
+        rendering.BusViewer().update_screen(self.position, self.velocity)
 
     def seed(self, seed=None):
         self.np_random, seed = seeding.np_random(seed)
