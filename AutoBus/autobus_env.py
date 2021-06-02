@@ -9,11 +9,11 @@ from gym.utils import seeding
 class AutobusEnv:
 
     def __init__(self):
-        self.speed_limit = 50
+        self.speed_limit = 50/3.6
         self.track_length = 3000
-        self.dt = 0.5
+        self.dt = 0.25
 
-        self.reward_weights = [1.0, 0.5, 1.0] # , 1.0] # 1 for reaching curr speed limit, 1.0 for jerk?
+        self.reward_weights = [5.0, 20.0, 50.0, 200.0] # , 1.0] # 1 for reaching curr speed limit, 1.0 for jerk?
         self.seed()
 
         self.position = 0.0
@@ -66,13 +66,13 @@ class AutobusEnv:
         # too far from bus stop, then minus a lot points also
         reward_forward = abs(self.velocity - self.speed_limit)
         reward_forward /= self.speed_limit
-        if self.velocity > self.speed_limit: reward_forward = 10
+        if self.velocity > self.speed_limit: reward_forward = 50
 
         reward_jerk = self.jerk / 5      # 5 is random number
         reward_acc = 5 if self.velocity == 0 and self.prev_acceleration < 0 else 0
-        # reward_dest = 5 if self.position == 200 and self.velocity > 0 else 0
+        reward_dest = self.velocity**2 if self.position == 200 else 0
         reward_list = [
-            -reward_forward, -reward_jerk, -reward_acc  # , -reward_dest
+            -reward_forward, -reward_jerk, -reward_acc, -reward_dest
         ]
         return reward_list
 

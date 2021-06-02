@@ -1,14 +1,14 @@
+import gc
 import autobus_env
 import numpy as np
-import joblib
 import pickle
 from matplotlib import pyplot as plt
 import time
-import pandas as pd
+
 
 # set up the tiles (position, velocity, acceleration)
 pos_intervals = np.linspace(0, 201, 201)
-vel_intervals = np.linspace(0, 60, 120)
+vel_intervals = np.linspace(0, 20, 80)
 acc_intervals = np.linspace(-4, 4, 8)
 action_space = np.arange(-4, 4, 1)
 
@@ -34,6 +34,7 @@ def choose_action(epsilon, Q, state):
             max_index = i
     return max_index
 
+
 # NEED TO CHANGE THE dt IN THE AUTOBUS ENV BECAUSE EVERY 0.1S UPDATE IS TOO FAST, DOESNT ALLOW ENOUGH LEEWAY TO ENTER NEW STATES
 # ALSO, THE TILING HAS ISSUES BECAUSE CANNOT SAVE INTO A CSV FILE SO NEED TO RETHINK HOW TO CHOOSE STATES
 # 1st trial: 6230s, but policy cannot be saved because too big of a file
@@ -41,7 +42,7 @@ def choose_action(epsilon, Q, state):
 # run very fast if there isn't rendering
 if __name__ == "__main__":
     env = autobus_env.AutobusEnv()
-    rounds = 50000
+    rounds = 40000
     alpha = 0.1
     gamma = 0.8
     epsilon = 1
@@ -50,7 +51,7 @@ if __name__ == "__main__":
     scores = np.zeros(rounds)
 
     for p in range(201):
-        for v in range(121):
+        for v in range(81):
             for a in range(9):
                 states.append((p,v,a))
 
@@ -83,7 +84,8 @@ if __name__ == "__main__":
             state = new_state
             action = new_action
             score += reward
-            epsilon -= 1/rounds
+            if i > 10000:
+                epsilon -= 1/(rounds - 10000)
         if i == rounds - 1:
             env.close()
         if (i + 1) % 500 == 0 :
@@ -103,6 +105,7 @@ if __name__ == "__main__":
     plt.plot(mean_score)
     plt.savefig('mean_score.png')
 
+    gc.collect()
 
 
 
