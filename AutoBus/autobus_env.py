@@ -11,9 +11,9 @@ class AutobusEnv:
     def __init__(self):
         self.speed_limit = 50
         self.track_length = 3000
-        self.dt = 0.1
+        self.dt = 0.5
 
-        self.reward_weights = [1.0, 1.0, 2.0, 2.0] # 1 for reaching curr speed limit, 1.0 for jerk?
+        self.reward_weights = [1.0, 0.5, 1.0] # , 1.0] # 1 for reaching curr speed limit, 1.0 for jerk?
         self.seed()
 
         self.position = 0.0
@@ -27,7 +27,7 @@ class AutobusEnv:
 
         self.viewer = None
 
-    def step(self,action):
+    def step(self, action):
         # assert self.action_space.contains(action), f'{action} ({type(action)}) invalid shape or bounds'
         if self.position + (0.5 * action * self.dt ** 2 + self.velocity * self.dt) < self.position:
             self.position = self.position
@@ -70,9 +70,9 @@ class AutobusEnv:
 
         reward_jerk = self.jerk / 5      # 5 is random number
         reward_acc = 5 if self.velocity == 0 and self.prev_acceleration < 0 else 0
-        reward_dest = 5 if self.position == 200 and self.velocity > 0 else 0
+        # reward_dest = 5 if self.position == 200 and self.velocity > 0 else 0
         reward_list = [
-            -reward_forward, -reward_jerk, -reward_acc, -reward_dest
+            -reward_forward, -reward_jerk, -reward_acc  # , -reward_dest
         ]
         return reward_list
 
