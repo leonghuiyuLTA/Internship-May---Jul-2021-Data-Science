@@ -1,8 +1,13 @@
-Creating an agent to learn to drive a bus from 1 point to another, stopping at bus stops
+The current position-time, velocity-time and acceleration-time graphs can be seen in the respective pngs.
+To observe the animation, run the "Trained Agent.py" file.
 
-VERSION 1:
-Bus travels from 1 bus stop to another bus stop 200m away
-Acceleration can be -4,-3,-2,-1,0,1,2,3,4
-Rewards given based on velocity(respect to speed limit), Proper Acceleration
-Bus does not stop at the bus stop
-Bus does not seem to hit speed higher than 10km/h
+"Trainer.py" is the code that runs the trainer. The functions are:
+1. get_state(), which classifies the current state of the bus into the tiles
+2. choose_action(), which decides which action the agent will take
+
+"autobus_env.py" is the environment. The function get_reward() shows how the rewards are calculated.
+
+"Rendering.py" is the code which shows the animation.
+
+The agent ends his journey at 228m, and exceeds the speed limit at some point.
+The score at the beginning of training is insanely negative, but reaches an acceptable position nearer the end.

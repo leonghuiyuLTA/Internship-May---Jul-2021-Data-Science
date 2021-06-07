@@ -7,10 +7,10 @@ import time
 
 
 # set up the tiles (position, velocity, acceleration)
-pos_intervals = np.linspace(0, 201, 201)
+pos_intervals = np.linspace(0, 250, 250)
 vel_intervals = np.linspace(0, 20, 80)
-acc_intervals = np.linspace(-4, 4, 8)
-action_space = np.arange(-4, 4, 1)
+acc_intervals = np.linspace(-4, 5, 10)
+action_space = np.arange(-4, 5, 1)
 
 
 def get_state(obs):
@@ -26,34 +26,29 @@ def choose_action(epsilon, Q, state):
     if np.random.random() < epsilon:
         return np.random.choice(action_space)
     # exploitation
-    max_index = 0
+    max_acc = -4
     max_val = -1e9
     for i in action_space:
         if Q[state, i] > max_val:
             max_val = Q[state, i]
-            max_index = i
-    return max_index
+            max_acc = i
+    return max_acc
 
 
-# NEED TO CHANGE THE dt IN THE AUTOBUS ENV BECAUSE EVERY 0.1S UPDATE IS TOO FAST, DOESNT ALLOW ENOUGH LEEWAY TO ENTER NEW STATES
-# ALSO, THE TILING HAS ISSUES BECAUSE CANNOT SAVE INTO A CSV FILE SO NEED TO RETHINK HOW TO CHOOSE STATES
-# 1st trial: 6230s, but policy cannot be saved because too big of a file
-# 2nd trial: change dt to 0.5s.
-# run very fast if there isn't rendering
 if __name__ == "__main__":
     env = autobus_env.AutobusEnv()
-    rounds = 40000
+    rounds = 30000
     alpha = 0.1
-    gamma = 0.8
+    gamma = 1
     epsilon = 1
     Q = {} # 14million key-value pairs
     states = []
     scores = np.zeros(rounds)
 
-    for p in range(201):
+    for p in range(251):
         for v in range(81):
-            for a in range(9):
-                states.append((p,v,a))
+            for a in range(11):
+                states.append((p, v, a))
 
     for s in states:
         for a in action_space:
@@ -66,7 +61,7 @@ if __name__ == "__main__":
     print("starting")
     start = time.time()
     for i in range(rounds):
-        if (i + 1) % 500 == 0:
+        if (i + 1) % 100 == 0:
             print("Round: ", i + 1)
         done = False
         score = 0
@@ -84,13 +79,12 @@ if __name__ == "__main__":
             state = new_state
             action = new_action
             score += reward
-            if i > 10000:
-                epsilon -= 1/(rounds - 10000)
         if i == rounds - 1:
             env.close()
-        if (i + 1) % 500 == 0 :
+        if (i + 1) % 100 == 0:
             print(score)
         scores[i] = score
+        epsilon -= 1 / rounds
     end = time.time()
     print("Time elapsed: ", end - start)
 

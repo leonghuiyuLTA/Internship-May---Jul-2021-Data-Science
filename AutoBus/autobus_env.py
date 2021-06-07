@@ -10,16 +10,17 @@ class AutobusEnv:
 
     def __init__(self):
         self.speed_limit = 50/3.6
-        self.track_length = 3000
         self.dt = 0.25
 
-        self.reward_weights = [5.0, 20.0, 50.0, 200.0] # , 1.0] # 1 for reaching curr speed limit, 1.0 for jerk?
+        self.reward_weights = [10.0, 1.0, 5.0, 1.0]
         self.seed()
 
-        self.position = 0.0
+        self.dist_to_bus_stop = 200.0
+        self.position = self.dist_to_bus_stop
+        self.new_position = self.position
         self.velocity = 0.0
         self.prev_acceleration = 0.0
-        self.jerk = 0.0 # new acc - old acc
+        self.jerk = 0.0  # new acc - old acc
         self.time = 0
         self.done = False
 
@@ -28,27 +29,26 @@ class AutobusEnv:
         self.viewer = None
 
     def step(self, action):
-        # assert self.action_space.contains(action), f'{action} ({type(action)}) invalid shape or bounds'
-        if self.position + (0.5 * action * self.dt ** 2 + self.velocity * self.dt) < self.position:
-            self.position = self.position
-        elif self.position + (0.5 * action * self.dt ** 2 + self.velocity * self.dt) >= 200:
-            self.position = 200
+        # Calculate the distance remaining to the bus stop
+        if self.position - (0.5 * action * self.dt ** 2 + self.velocity * self.dt) > self.position:
+            self.new_position = self.position
         else:
-            self.position = self.position + (0.5 * action * self.dt ** 2 + self.velocity * self.dt)
-        if self.position >= 200 :
+            self.new_position = self.position - (0.5 * action * self.dt ** 2 + self.velocity * self.dt)
+        if self.new_position <= 0 and self.velocity == 0 :
             self.done = True
         if self.velocity + action * self.dt >= 0:
             self.velocity += action * self.dt
         else:
             self.velocity= 0
         self.time += self.dt
-        if self.time > 300: done = True
+        if self.time > 300: self.done = True
         self.jerk = abs((action - self.prev_acceleration))
         self.prev_acceleration = action
 
         reward_list = self.get_reward() # is a list, but now we only care speed limits
+        self.position = self.new_position
         info = {
-            'position' : self.position,
+            'distance left' : self.position,
             'velocity' : self.velocity,
             'acceleration': self.prev_acceleration,
             'jerk': self.jerk,
@@ -62,22 +62,28 @@ class AutobusEnv:
         return np.hstack((self.position, self.velocity, self.prev_acceleration))
 
     def get_reward(self):
-        # should implement minus a lot of points if above speed limit, and if final position
-        # too far from bus stop, then minus a lot points also
-        reward_forward = abs(self.velocity - self.speed_limit)
-        reward_forward /= self.speed_limit
-        if self.velocity > self.speed_limit: reward_forward = 50
+        # reward for distance remaining to the bus stop
+        if self.new_position >= 0:
+            reward_distance = (self.position - self.new_position)
+        else:
+            reward_distance = self.new_position/10
 
-        reward_jerk = self.jerk / 5      # 5 is random number
-        reward_acc = 5 if self.velocity == 0 and self.prev_acceleration < 0 else 0
-        reward_dest = self.velocity**2 if self.position == 200 else 0
+        # reward for not jerking
+        reward_jerk = -self.jerk/300  # 10 is max jerk
+
+        # penalty if exceed speed limit
+        reward_vel = self.speed_limit - self.velocity if self.velocity > self.speed_limit else 0
+
+        # reward for shorter time taken to reach the end
+        reward_time = - self.dt
         reward_list = [
-            -reward_forward, -reward_jerk, -reward_acc, -reward_dest
+            reward_distance, reward_jerk, reward_vel, reward_time
         ]
         return reward_list
 
     def reset(self):
-        self.position = 0.0
+        self.position = 200.0
+        self.new_position = self.position
         self.velocity = 0.0
         self.prev_acceleration = 0.0
         self.jerk = 0.0  # new acc - old acc
@@ -87,7 +93,7 @@ class AutobusEnv:
         return state
 
     def render(self):
-        rendering.BusViewer().update_screen(self.position, self.velocity)
+        rendering.BusViewer().update_screen(200 - self.position, self.velocity)
 
     def close(self):
         rendering.BusViewer().close()

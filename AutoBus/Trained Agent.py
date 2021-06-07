@@ -6,10 +6,10 @@ from matplotlib import pyplot as plt
 import time
 
 # set up the tiles (position, velocity, acceleration)
-pos_intervals = np.linspace(0, 201, 201)
+pos_intervals = np.linspace(0, 251, 251)
 vel_intervals = np.linspace(0, 20, 80)
-acc_intervals = np.linspace(-4, 4, 8)
-action_space = np.arange(-4, 4, 1)
+acc_intervals = np.linspace(-4, 5, 10)
+action_space = np.arange(-4, 5, 1)
 
 
 def get_state(obs):
@@ -51,7 +51,7 @@ if __name__ == "__main__":
         state = get_state(obs)
         action = choose_action(Q, state)
         score += reward
-        pos_track.append(info["position"])
+        pos_track.append(info["distance left"])
         vel_track.append(info["velocity"])
         acc_track.append(info["acceleration"])
         time_track.append(info["time"])
