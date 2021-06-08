@@ -37,7 +37,7 @@ def choose_action(epsilon, Q, state):
 
 if __name__ == "__main__":
     env = autobus_env.AutobusEnv()
-    rounds = 30000
+    rounds = 25000
     alpha = 0.1
     gamma = 1
     epsilon = 1
@@ -61,7 +61,7 @@ if __name__ == "__main__":
     print("starting")
     start = time.time()
     for i in range(rounds):
-        if (i + 1) % 100 == 0:
+        if (i + 1) % 500 == 0:
             print("Round: ", i + 1)
         done = False
         score = 0
@@ -81,7 +81,7 @@ if __name__ == "__main__":
             score += reward
         if i == rounds - 1:
             env.close()
-        if (i + 1) % 100 == 0:
+        if (i + 1) % 500 == 0:
             print(score)
         scores[i] = score
         epsilon -= 1 / rounds

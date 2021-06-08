@@ -11,3 +11,6 @@ To observe the animation, run the "Trained Agent.py" file.
 
 The agent ends his journey at 228m, and exceeds the speed limit at some point.
 The score at the beginning of training is insanely negative, but reaches an acceptable position nearer the end.
+
+Realised an issue dealing with rewards in terms of the distance away the bus is from the bus stop.
+It Cannot be extended to other distances(even if training is done from the max dist of 250, and use for 200)?

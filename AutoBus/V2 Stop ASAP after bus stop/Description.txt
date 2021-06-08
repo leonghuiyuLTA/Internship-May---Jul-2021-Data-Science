@@ -1,0 +1,1 @@
+The bus gets to(past) the bus stop but tries to stop asap.

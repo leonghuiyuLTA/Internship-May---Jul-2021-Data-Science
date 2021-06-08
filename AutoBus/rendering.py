@@ -100,7 +100,7 @@ class BusViewer(object):
         surface = self.font.render(text, True, (0, 0, 0))
         self.screen.blit(surface, (x, y))
 
-    def update_screen(self, position, velocity):
+    def update_screen(self, position, velocity, time):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -109,6 +109,7 @@ class BusViewer(object):
 
         self.plot_text(10, 10, "Position: {:.3f}".format(float(position)))
         self.plot_text(10, 30, "Velocity: {:.3f}".format(float(velocity)))
+        self.plot_text(1000, 10, "Time: {:.3f}".format(float(time)))
         self.bus.rect.centerx = 75 + position * 5
         self.sprites.draw(self.screen)
         pygame.display.flip()

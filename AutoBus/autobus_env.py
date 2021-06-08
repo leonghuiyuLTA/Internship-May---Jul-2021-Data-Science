@@ -11,9 +11,9 @@ class AutobusEnv:
     def __init__(self):
         self.speed_limit = 50/3.6
         self.dt = 0.25
-
-        self.reward_weights = [10.0, 1.0, 5.0, 1.0]
-        self.seed()
+        # V1: [1.0]
+        # V2: [1.0, 1.0]
+        self.reward_weights = [3.0, 2.5] #, 2.0, 1.0]  # , 1.0, 10.0, 2.0]
 
         self.dist_to_bus_stop = 200.0
         self.position = self.dist_to_bus_stop
@@ -34,7 +34,7 @@ class AutobusEnv:
             self.new_position = self.position
         else:
             self.new_position = self.position - (0.5 * action * self.dt ** 2 + self.velocity * self.dt)
-        if self.new_position <= 0 and self.velocity == 0 :
+        if self.new_position <= 0 and self.velocity == 0:
             self.done = True
         if self.velocity + action * self.dt >= 0:
             self.velocity += action * self.dt
@@ -65,24 +65,34 @@ class AutobusEnv:
         # reward for distance remaining to the bus stop
         if self.new_position >= 0:
             reward_distance = (self.position - self.new_position)
+        elif self.position >= 0:
+            reward_distance = self.position + self.new_position
         else:
-            reward_distance = self.new_position/10
+            # V1: = 0
+            # V2: = self.position
+            reward_distance = self.new_position
+        # else:
+        #     reward_distance = self.new_position
 
         # reward for not jerking
         reward_jerk = -self.jerk/300  # 10 is max jerk
 
         # penalty if exceed speed limit
         reward_vel = self.speed_limit - self.velocity if self.velocity > self.speed_limit else 0
+        #reward_vel = reward_vel - self.velocity if self.position <= 0 else reward_vel
 
         # reward for shorter time taken to reach the end
         reward_time = - self.dt
+
+        # V1: reward_distance
+        # V2: reward_distance, reward_time
         reward_list = [
-            reward_distance, reward_jerk, reward_vel, reward_time
+            reward_distance, reward_time#, reward_vel #, reward_jerk,
         ]
         return reward_list
 
     def reset(self):
-        self.position = 200.0
+        self.position = self.dist_to_bus_stop
         self.new_position = self.position
         self.velocity = 0.0
         self.prev_acceleration = 0.0
@@ -93,11 +103,8 @@ class AutobusEnv:
         return state
 
     def render(self):
-        rendering.BusViewer().update_screen(200 - self.position, self.velocity)
+        rendering.BusViewer().update_screen(self.dist_to_bus_stop - self.position, self.velocity, self.time)
 
     def close(self):
         rendering.BusViewer().close()
 
-    def seed(self, seed=None):
-        self.np_random, seed = seeding.np_random(seed)
-        return [seed]
