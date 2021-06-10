@@ -13,8 +13,8 @@ class AutobusEnv:
         self.dt = 0.25
         # V1: [1.0]
         # V2: [1.0, 1.0]
-        self.reward_weights = [3.0, 2.5] #, 2.0, 1.0]  # , 1.0, 10.0, 2.0]
-
+        # V3? : [1.4, 3.6, 2.6, 4.0] and exceeding position * 8.5
+        self.reward_weights = [1.4, 2.3, 1.4, 3.1] #, 2.0, 1.0]  # , 1.0, 10.0, 2.0]
         self.dist_to_bus_stop = 200.0
         self.position = self.dist_to_bus_stop
         self.new_position = self.position
@@ -66,20 +66,20 @@ class AutobusEnv:
         if self.new_position >= 0:
             reward_distance = (self.position - self.new_position)
         elif self.position >= 0:
-            reward_distance = self.position + self.new_position
+            reward_distance = (self.position + self.new_position) * 20  # <- problem here
         else:
             # V1: = 0
             # V2: = self.position
-            reward_distance = self.new_position
+            reward_distance = self.new_position * 20
         # else:
         #     reward_distance = self.new_position
 
         # reward for not jerking
-        reward_jerk = -self.jerk/300  # 10 is max jerk
+        reward_jerk = -self.jerk/5 # 10 is max jerk
 
         # penalty if exceed speed limit
         reward_vel = self.speed_limit - self.velocity if self.velocity > self.speed_limit else 0
-        #reward_vel = reward_vel - self.velocity if self.position <= 0 else reward_vel
+        reward_vel = reward_vel - self.velocity ** 2 if self.position <= 0 else reward_vel
 
         # reward for shorter time taken to reach the end
         reward_time = - self.dt
@@ -87,7 +87,7 @@ class AutobusEnv:
         # V1: reward_distance
         # V2: reward_distance, reward_time
         reward_list = [
-            reward_distance, reward_time#, reward_vel #, reward_jerk,
+            reward_distance, reward_time, reward_jerk, reward_vel
         ]
         return reward_list
 

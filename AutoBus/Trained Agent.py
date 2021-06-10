@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 import time
 
 # set up the tiles (position, velocity, acceleration)
-pos_intervals = np.linspace(0, 251, 251)
+pos_intervals = np.linspace(0, 261, 261)
 vel_intervals = np.linspace(0, 20, 80)
 acc_intervals = np.linspace(-4, 5, 10)
 action_space = np.arange(-4, 5, 1)

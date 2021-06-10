@@ -7,7 +7,7 @@ import time
 
 
 # set up the tiles (position, velocity, acceleration)
-pos_intervals = np.linspace(0, 250, 250)
+pos_intervals = np.linspace(0, 260, 260)
 vel_intervals = np.linspace(0, 20, 80)
 acc_intervals = np.linspace(-4, 5, 10)
 action_space = np.arange(-4, 5, 1)
@@ -45,7 +45,7 @@ if __name__ == "__main__":
     states = []
     scores = np.zeros(rounds)
 
-    for p in range(251):
+    for p in range(261):
         for v in range(81):
             for a in range(11):
                 states.append((p, v, a))
