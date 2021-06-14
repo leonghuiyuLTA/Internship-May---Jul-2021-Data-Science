@@ -8,7 +8,7 @@ import time
 
 # set up the tiles (position, velocity, acceleration)
 pos_intervals = np.linspace(0, 260, 260)
-vel_intervals = np.linspace(0, 20, 80)
+vel_intervals = np.linspace(0, 60, 60)
 acc_intervals = np.linspace(-4, 5, 10)
 action_space = np.arange(-4, 5, 1)
 
@@ -37,16 +37,16 @@ def choose_action(epsilon, Q, state):
 
 if __name__ == "__main__":
     env = autobus_env.AutobusEnv()
-    rounds = 25000
+    rounds = 40000
     alpha = 0.1
-    gamma = 1
+    gamma = 0.99
     epsilon = 1
     Q = {} # 14million key-value pairs
     states = []
     scores = np.zeros(rounds)
 
-    for p in range(261):
-        for v in range(81):
+    for p in range(262):
+        for v in range(61):
             for a in range(11):
                 states.append((p, v, a))
 
@@ -69,8 +69,6 @@ if __name__ == "__main__":
         state = get_state(init)
         action = choose_action(epsilon, Q, state)
         while not done:
-            if i == rounds - 1:
-                env.render()
             obs, reward, done, info = env.step(action)
             new_state = get_state(obs)
             new_action = choose_action(epsilon, Q, new_state)
@@ -79,12 +77,10 @@ if __name__ == "__main__":
             state = new_state
             action = new_action
             score += reward
-        if i == rounds - 1:
-            env.close()
         if (i + 1) % 500 == 0:
             print(score)
         scores[i] = score
-        epsilon -= 1 / rounds
+        epsilon -= 1 / (rounds-2)
     end = time.time()
     print("Time elapsed: ", end - start)
 

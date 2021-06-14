@@ -108,7 +108,7 @@ class BusViewer(object):
         self.screen.blit(self.background, (0, 0))
 
         self.plot_text(10, 10, "Position: {:.3f}".format(float(position)))
-        self.plot_text(10, 30, "Velocity: {:.3f}".format(float(velocity)))
+        self.plot_text(10, 30, "Velocity: {:.3f}".format(float(3.6*velocity)))
         self.plot_text(1000, 10, "Time: {:.3f}".format(float(time)))
         self.bus.rect.centerx = 75 + position * 5
         self.sprites.draw(self.screen)

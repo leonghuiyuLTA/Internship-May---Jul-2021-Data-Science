@@ -6,8 +6,8 @@ from matplotlib import pyplot as plt
 import time
 
 # set up the tiles (position, velocity, acceleration)
-pos_intervals = np.linspace(0, 261, 261)
-vel_intervals = np.linspace(0, 20, 80)
+pos_intervals = np.linspace(0, 260, 260)
+vel_intervals = np.linspace(0, 60, 60)
 acc_intervals = np.linspace(-4, 5, 10)
 action_space = np.arange(-4, 5, 1)
 
@@ -56,6 +56,7 @@ if __name__ == "__main__":
         acc_track.append(info["acceleration"])
         time_track.append(info["time"])
     env.close()
+    print("Score: ", score)
 
     x1 = time_track
     y1 = vel_track
