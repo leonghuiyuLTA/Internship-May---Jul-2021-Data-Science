@@ -25,6 +25,7 @@ def choose_action(epsilon, Q, state):
     # exploration
     if np.random.random() < epsilon:
         return np.random.choice(action_space)
+    
     # exploitation
     max_acc = -4
     max_val = -1e9
@@ -40,10 +41,14 @@ if __name__ == "__main__":
     rounds = 40000
     alpha = 0.1
     gamma = 0.99
-    epsilon = 1
+    epsilon = 0.15
     Q = {} # 14million key-value pairs
     states = []
     scores = np.zeros(rounds)
+    prev_score = 0.0
+    tol = 0.005
+    tol_count = 5
+    conv_count = 0
 
     for p in range(262):
         for v in range(61):
@@ -80,7 +85,12 @@ if __name__ == "__main__":
         if (i + 1) % 500 == 0:
             print(score)
         scores[i] = score
-        epsilon -= 1 / (rounds-2)
+        if(abs(score - prev_score) < tol): 
+            conv_count +=1 
+            if(conv_count == tol_count):
+                break 
+        prev_score = score
+        #epsilon -= 1 / (rounds-2)
     end = time.time()
     print("Time elapsed: ", end - start)
 
